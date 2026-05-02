@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a user in the MedVault system, either a patient or a doctor.",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["patient", "doctor"] },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "age": { "type": "integer" },
+        "gender": { "type": "string" },
+        "bloodGroup": { "type": "string" },
+        "address": { "type": "string" },
+        "degree": { "type": "string" },
+        "isSharing": { "type": "boolean" }
+      },
+      "required": ["role", "name", "email"]
+    },
+    "Record": {
+      "title": "Medical Record",
+      "description": "A medical prescription or report uploaded by a patient.",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string" },
+        "fileURL": { "type": "string" },
+        "type": { "type": "string", "enum": ["prescription", "report"] },
+        "fileName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["patientId", "fileURL", "type", "fileName", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Profile data for patients and doctors."
+    },
+    "/records/{recordId}": {
+      "schema": "Record",
+      "description": "Medical records repository."
+    }
+  }
+}
